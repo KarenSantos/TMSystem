@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "InstructorTable7997484")
-class Instructor extends User implements Serializable{
+public class Instructor extends User implements Serializable{
     static long serialVersionUID = 1L;
 
     /**

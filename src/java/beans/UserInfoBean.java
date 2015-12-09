@@ -17,7 +17,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import persistence.DBHelper;
+import persistence.Instructor;
 import persistence.Student;
 import persistence.User;
 import persistence.Section;
@@ -166,7 +166,7 @@ public class UserInfoBean implements Serializable {
     }
     
     /**
-     * Add the user to the database
+     * Add the student to the database
      * @param actionEvent
      * @return 
      */
@@ -191,43 +191,28 @@ public class UserInfoBean implements Serializable {
     }
     
     /**
-     * Add the user to the database
+     * Add the instructor to the database
      * @param actionEvent
      * @return 
      */
-    public String doUpdate(ActionEvent actionEvent) {
-        User user = DBHelper.findUser(em, emailId);
-        user.setEmailId(emailId);
-        user.setPassword(password);
-        user.setNameLast(nameLast);
-        user.setNameGiven(nameGiven);
-        
+    public String doRegisterInstructor(ActionEvent actionEvent) {
+        User user = new Instructor(emailId, password, nameLast, nameGiven);
+       
         try {
-           update(user); 
-           String msg = "User Profile Updated Successfully";
+           persist(user); 
+           String msg = "User Profile Created Successfully";
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
            FacesContext.getCurrentInstance().getExternalContext()
                 .getFlash().setKeepMessages(true);
            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
            FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
         } catch(RuntimeException e) {
-           String msg = "Error While Updating User Profile (method em.refresh not working)";
+           String msg = "Error While Creating User Profile";
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
            FacesContext.getCurrentInstance().getExternalContext()
                 .getFlash().setKeepMessages(true);
         }
         return null;
-    }
-    
-    public void update(Object object) {
-        try {
-            utx.begin();
-            em.refresh(object);
-            utx.commit();
-        } catch (Exception e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
-        }
     }
 
     public void persist(Object object) {
@@ -240,5 +225,4 @@ public class UserInfoBean implements Serializable {
             throw new RuntimeException(e);
         }
     }
-
 }

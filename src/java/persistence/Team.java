@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TeamTable7997484")
-class Team implements Serializable {
+public class Team implements Serializable {
 
     static long serialVersionUID = 1L;
 
