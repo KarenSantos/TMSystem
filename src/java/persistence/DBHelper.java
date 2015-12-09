@@ -5,7 +5,10 @@
  */
 package persistence;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,8 +25,23 @@ public class DBHelper {
         return c;
     }
     
+    public static List findAllCourses(EntityManager em) {
+        Query query = em.createQuery("SELECT i FROM Course i");
+        return performQuery(query);
+    }
+    
     public static Team findTeam(EntityManager em,String id) {
         Team t = em.find(Team.class, id);
         return t;
+    }
+    
+    private static List performQuery(final Query query) {
+        List resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
+        }
+        List<Course> results = new ArrayList<>();
+        results.addAll(resultList);
+        return results;
     }
 }

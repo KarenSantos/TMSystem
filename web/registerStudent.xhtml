@@ -2,9 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
+    <h:body>
 
         <ui:composition template="./template.xhtml">
 
@@ -14,10 +16,66 @@
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <p:outputLabel value="Email:*"/>
+                        <p:inputText id="emailId"
+                                     value="#{userInfoBean.emailId}"
+                                     validatorMessage="Invalid Email format"
+                                     label="EmailId" required="true"
+                                     requiredMessage="An Email is required"
+                                     title="Enter your email (e.g. xxx@xxx.xxx)">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            <p:ajax event="keyup" update="emailMsg"/>
+                        </p:inputText>
+                        <p:message id="emailMsg" for="emailId"/>
+                        <p:outputLabel value="Password:*"/>
+                        <p:password id="password"
+                                    value="#{userInfoBean.password}"
+                                    feedback="true"
+                                    promptLabel="Enter Password"
+                                    weakLabel="Weak Password"
+                                    goodLabel="Good Password"
+                                    strongLabel="Strong Password"
+                                    match="confPwd" 
+                                    required="true"
+                                    requiredMessage="A Password is required"/>
+                        <p:message for="password"/>
+                        <p:outputLabel for="confPwd" value="Confirm Password"/>
+                        <p:password id="confPwd"
+                                    value="#{userInfoBean.password}"
+                                    required="true"
+                                    title="Repeat password as above"/>
+                        <p:message for="confPwd"/>
+                        <p:outputLabel value="Last Name:*"/>
+                        <p:inputText id="nameLast"
+                                     value="#{userInfoBean.nameLast}"
+                                     required="true" label="Last Name"
+                                     requiredMessage="Last name is required">
+                            <p:ajax event="keyup" update="nameLastMsg"/>
+                        </p:inputText>
+                        <p:message  id="nameLastMsg" for="nameLast"/>
+                        <p:outputLabel value="Given Name:*"/>
+                        <p:inputText id="nameGiven"
+                                     value="#{userInfoBean.nameGiven}"/>
+                        <p:message for="nameGiven"/>
+                        <p:outputLabel value="program"/>
+                        <p:inputText id="program"
+                                     value="#{userInfoBean.program}"/>
+                        <p:message for="program"/>
+                    </h:panelGrid>
+                    <p:commandButton id="submitBtn" actionListener="#{userInfoBean.doRegisterStudent}"
+                                     value="Create Profile"
+                                     onclick="PF('bui').show()" oncomplete="PF('bui').hide()"/>
+                    <p:commandButton value="Reset" type="reset" />
+                    <p><h:outputText  
+                            style="color:royalblue; font-size: large; font-weight: bold" 
+                            id="status" 
+                            value="#{userInfoBean.addstatus}"/></p>
+                </h:form>
             </ui:define>
 
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>

@@ -172,17 +172,9 @@ public class CourseBean implements Serializable {
        
         try {
            persist(course); 
-           String msg = "Course Added Successfully";
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
-           FacesContext.getCurrentInstance().getExternalContext()
-                .getFlash().setKeepMessages(true);
-           FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-           FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
+           addstatus = "Course Added Successfully";
         } catch(RuntimeException e) {
-           String msg = "Error While Adding Course";
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-           FacesContext.getCurrentInstance().getExternalContext()
-                .getFlash().setKeepMessages(true);
+           addstatus = "Error While Adding Course";
         }
         return null;
     }

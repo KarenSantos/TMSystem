@@ -47,7 +47,7 @@
                                     required="true"
                                     title="Repeat password as above"/>
                         <p:message for="confPwd"/>
-                        <p:outputLabel value="nameLast:*"/>
+                        <p:outputLabel value="Last Name:*"/>
                         <p:inputText id="nameLast"
                                      value="#{userInfoBean.nameLast}"
                                      required="true" label="Last Name"
@@ -55,7 +55,7 @@
                             <p:ajax event="keyup" update="nameLastMsg"/>
                         </p:inputText>
                         <p:message  id="nameLastMsg" for="nameLast"/>
-                        <p:outputLabel value="nameGiven"/>
+                        <p:outputLabel value="Given Name:*"/>
                         <p:inputText id="nameGiven"
                                      value="#{userInfoBean.nameGiven}"/>
                         <p:message for="nameGiven"/>

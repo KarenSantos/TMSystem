@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="left">
+                <p><p:button outcome="instructorMenu" value="Menu"></p:button></p>
+                <p><p:button outcome="index" value="Sign Out"></p:button></p>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <p:outputLabel value="Course Code:*"/>
+                        <p:inputText id="courseCode"
+                                     value="#{courseBean.courseCode}"
+                                     label="CourseCode" required="true"
+                                     requiredMessage="A course code is required"
+                                     title="Enter the course code">
+                            <p:ajax event="keyup" update="courseCodeMsg"/>
+                        </p:inputText>
+                        <p:message id="courseCodeMsg" for="courseCode"/>
+                        <p:outputLabel value="Name:*"/>
+                        <p:inputText id="name"
+                                     value="#{courseBean.name}"
+                                     label="name" required="true"
+                                     requiredMessage="A name is required"
+                                     title="Enter the course name">
+                            <p:ajax event="keyup" update="nameMsg"/>
+                        </p:inputText>
+                        <p:message id="nameMsg" for="name"/>
+                        <p:outputLabel value="Description:"/>
+                        <p:inputText id="description"
+                                     value="#{courseBean.description}"
+                                     label="Description">
+                                     <p:ajax event="keyup" update="descriptionMsg"/>
+                        </p:inputText>
+                        <p:message  id="descriptionMsg" for="description"/>
+                        <p:outputLabel value="Minimum Members for Team:*"/>
+                        <p:inputText id="min"
+                                     required="true"
+                                     requiredMessage="A number is required"
+                                     title="Enter a minimum members number"
+                                     value="#{courseBean.minTeamMembers}">
+                            <p:ajax event="keyup" update="minMsg"/>
+                        </p:inputText>
+                        <p:message id="minMsg" for="min"/>
+                        <p:outputLabel value="Maximum Members for Team:*"/>
+                        <p:inputText id="max"
+                                     required="true"
+                                     requiredMessage="A number is required"
+                                     title="Enter a maximum members number"
+                                     value="#{courseBean.maxTeamMembers}">
+                            <p:ajax event="keyup" update="maxMsg"/>
+                        </p:inputText>
+                        <p:message id="maxMsg" for="max"/>
+                        <p:outputLabel value="Deadline for team formation:"/>
+                        <p:calendar id="deadline"
+                                    value="#{courseBean.deadline}"
+                                    label="Deadline"
+                                    yearRange = "c-120:c"
+                                    navigator="true"
+                                    showButtonPanel="true"
+                                    title="Pick a deadline from the calendar">
+                        </p:calendar>
+                    </h:panelGrid>
+                    <p:commandButton id="submitBtn" actionListener="#{courseBean.addCourse}"
+                                     value="Add Course"
+                                     onclick="PF('bui').show()" oncomplete="PF('bui').hide()"/>
+                    <p:commandButton value="Reset" type="reset" />
+                    <p><h:outputText  
+                            style="color:royalblue; font-size: large; font-weight: bold" 
+                            id="status" 
+                            value="#{courseBean.addstatus}"/></p>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

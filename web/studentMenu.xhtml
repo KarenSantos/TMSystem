@@ -2,27 +2,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
         <ui:composition template="./template.xhtml">
 
            <ui:define name="left">
-                <li><h:link outcome="signOut" value="Sign Out"/></li>
+                <p><p:button outcome="index" value="Sign Out"></p:button></p>
             </ui:define>
 
             <ui:define name="content">
-                <!-- see the instructor menu page comment -->
-                 <h:selectOneMenu id="courseList" value="#{CourseBean.courseCode}">
-                    <f:selectItems value="#{InstructorBean.courses}" />
-                </h:selectOneMenu>
-                <li><h:link outcome="createTeam" value="Create Team"/></li>
-                <!-- place holders for more advanced links -->
-                <li><h:link outcome="joinTeam" value="Join Team"/></li>
-                <li><h:link outcome="quitTeam" value="Quit Team"/></li>
-                <li><h:link outcome="acceptStudent" value="Accept Student"/></li>
+                <div>
+                    <p>Hello Student,</p> 
+
+                    <p>Select an option in the Left Menu...</p>
+                </div>
             </ui:define>
 
         </ui:composition>

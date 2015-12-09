@@ -6,7 +6,10 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -32,9 +35,26 @@ public class Instructor extends User implements Serializable{
         serialVersionUID = aSerialVersionUID;
     }
     
+    
+    @OneToMany
+    private List<Course> courses;
+    
     public Instructor(){}
     
     public Instructor(String emailId, String password, String nameLast, String nameGiven){
         super(emailId, password, nameLast, nameGiven);
+        this.courses = new ArrayList<>();
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+    
+    public void addCourse(Course course){
+        courses.add(course);
     }
 }
