@@ -12,14 +12,18 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author karensantos
  */
 @Entity
-@Table(name = "TeamTable7997484")
+@Table(name = "TeamTable_7997484")
 public class Team implements Serializable {
 
     static long serialVersionUID = 1L;
@@ -41,12 +45,16 @@ public class Team implements Serializable {
     @Id
     private String teamId;
     private String name;
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
     private int minTeamMembers;
     private int maxTeamMembers;
     private boolean isComplete;
+    @ManyToMany
     private List<Student> students;
+    @ManyToMany
     private List<Student> wantToBeStudents;
+    @ManyToOne
     private Student liaison;
     
     public Team(){}

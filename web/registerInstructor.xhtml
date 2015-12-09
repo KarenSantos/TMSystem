@@ -11,7 +11,8 @@
         <ui:composition template="./template.xhtml">
 
             <ui:define name="left">
-                 <li><h:link outcome="login" value="Login"/></li>
+                <p><p:button outcome="index" value="Home"></p:button></p>
+                <p><p:button outcome="login" value="Login"></p:button></p>
             </ui:define>
 
             <ui:define name="content">
@@ -19,7 +20,7 @@
                     <h:panelGrid columns="3">
                         <p:outputLabel value="Email:*"/>
                         <p:inputText id="emailId"
-                                     value="#{userProfileBean.emailId}"
+                                     value="#{userInfoBean.emailId}"
                                      validatorMessage="Invalid Email format"
                                      label="EmailId" required="true"
                                      requiredMessage="An Email is required"
@@ -30,7 +31,7 @@
                         <p:message id="emailMsg" for="emailId"/>
                         <p:outputLabel value="Password:*"/>
                         <p:password id="password"
-                                    value="#{userProfileBean.password}"
+                                    value="#{userInfoBean.password}"
                                     feedback="true"
                                     promptLabel="Enter Password"
                                     weakLabel="Weak Password"
@@ -42,45 +43,31 @@
                         <p:message for="password"/>
                         <p:outputLabel for="confPwd" value="Confirm Password"/>
                         <p:password id="confPwd"
-                                    value="#{userProfileBean.password}"
+                                    value="#{userInfoBean.password}"
                                     required="true"
                                     title="Repeat password as above"/>
                         <p:message for="confPwd"/>
-                        <p:outputLabel value="FirstName:*"/>
-                        <p:inputText id="firstName"
-                                     value="#{userProfileBean.firstName}"
-                                     required="true" label="FirstName"
-                                     requiredMessage="A FirstName is required">
-                            <p:ajax event="keyup" update="firstNameMsg"/>
+                        <p:outputLabel value="nameLast:*"/>
+                        <p:inputText id="nameLast"
+                                     value="#{userInfoBean.nameLast}"
+                                     required="true" label="Last Name"
+                                     requiredMessage="Last name is required">
+                            <p:ajax event="keyup" update="nameLastMsg"/>
                         </p:inputText>
-                        <p:message  id="firstNameMsg" for="firstName"/>
-                        <p:outputLabel value="LastName:"/>
-                        <p:inputText id="lastName"
-                                     value="#{userProfileBean.lastName}"/>
-                        <p:message for="lastName"/>
-                        <p:outputLabel value="Phone:"/>
-                        <p:inputText id="phone"
-                                     value="#{userProfileBean.phone}"
-                                     validatorMessage="Invalid Phone. Phone number
-                                     should be in 999-999-9999 format"
-                                     title="Enter your phone number in format 999-999-9999">
-                            <f:validateRegex pattern="^\d{3}-\d{3}-\d{4}$"/>
-                        </p:inputText>
-                        <p:message for="phone"/>
-                        <p:outputLabel value="DOB:"/>
-                        <p:calendar id="dob"
-                                    value="#{userProfileBean.dob}"
-                                    label="DOB"
-                                    yearRange = "c-120:c"
-                                    navigator="true"
-                                    showButtonPanel="true"
-                                    title="Pick your date of birth from the calendar">
-                        </p:calendar>
-                        <p:message for="dob"/>
+                        <p:message  id="nameLastMsg" for="nameLast"/>
+                        <p:outputLabel value="nameGiven"/>
+                        <p:inputText id="nameGiven"
+                                     value="#{userInfoBean.nameGiven}"/>
+                        <p:message for="nameGiven"/>
                     </h:panelGrid>
-                    <p:commandButton id="submitBtn" actionListener="#{userProfileBean.doRegister}"
-                                         value="Create Profile"
-                                         onclick="PF('bui').show()" oncomplete="PF('bui').hide()"/>
+                    <p:commandButton id="submitBtn" actionListener="#{userInfoBean.doRegisterInstructor}"
+                                     value="Create Profile"
+                                     onclick="PF('bui').show()" oncomplete="PF('bui').hide()"/>
+                    <p:commandButton value="Reset" type="reset" />
+                    <p><h:outputText  
+                        style="color:royalblue; font-size: large; font-weight: bold" 
+                        id="status" 
+                        value="#{userInfoBean.addstatus}"/></p>
                 </h:form>
             </ui:define>
 

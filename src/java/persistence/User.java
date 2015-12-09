@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @author karensantos
  */
 @Entity
-@Table(name="UserTable7997484")
+@Table(name="UserTable_7997484")
 public abstract class User implements Serializable {
     static long serialVersionUID = 1L;
 

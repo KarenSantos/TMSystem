@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -17,6 +18,11 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import persistence.Instructor;
 import persistence.Student;
 import persistence.User;
@@ -27,7 +33,7 @@ import persistence.Section;
  * @author ssome
  */
 @Named(value = "userInfoBean")
-@SessionScoped
+@RequestScoped
 public class UserInfoBean implements Serializable {
     
     private String emailId;
@@ -200,17 +206,17 @@ public class UserInfoBean implements Serializable {
        
         try {
            persist(user); 
-           String msg = "User Profile Created Successfully";
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
-           FacesContext.getCurrentInstance().getExternalContext()
-                .getFlash().setKeepMessages(true);
-           FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-           FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
+           addstatus = "User Profile Created Successfully";
+//           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+//           FacesContext.getCurrentInstance().getExternalContext()
+//                .getFlash().setKeepMessages(true);
+//           FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//           FacesContext.getCurrentInstance().getViewRoot().getViewMap().clear();
         } catch(RuntimeException e) {
-           String msg = "Error While Creating User Profile";
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-           FacesContext.getCurrentInstance().getExternalContext()
-                .getFlash().setKeepMessages(true);
+           addstatus = "Error While Creating User Profile";
+//           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+//           FacesContext.getCurrentInstance().getExternalContext()
+//                .getFlash().setKeepMessages(true);
         }
         return null;
     }
@@ -220,7 +226,7 @@ public class UserInfoBean implements Serializable {
             utx.begin();
             em.persist(object);
             utx.commit();
-        } catch (Exception e) {
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             throw new RuntimeException(e);
         }

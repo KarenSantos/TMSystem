@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  * @author karensantos
  */
 @Entity
-@Table(name = "StudentTable7997484")
+@Table(name = "StudentTable_7997484")
 public class Student extends User implements Serializable{
     static long serialVersionUID = 1L;
 
@@ -36,7 +37,9 @@ public class Student extends User implements Serializable{
 
     private String program;
     private Section section;
+    @ManyToMany(mappedBy = "students")
     private List<Course> courses;
+    @ManyToMany(mappedBy = "students")
     private List<Team> teams;
 
     public Student() {
