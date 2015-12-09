@@ -9,22 +9,20 @@
 
         <ui:composition template="./template.xhtml">
 
-            <ui:define name="left">
+           <ui:define name="left">
                 <li><h:link outcome="signOut" value="Sign Out"/></li>
             </ui:define>
 
             <ui:define name="content">
-                <li><h:link outcome="registerCourse" value="Register Course"/></li>
-                <!-- for the next links, we need to select a course code 
-                and submit it to generate the outcome? 
-                http://stackoverflow.com/questions/7221872/jsf-combobox-display-items-from-collection
-                -->
-                <h:selectOneMenu id="courseList" value="#{CourseBean.courseCode}">
+                <!-- see the instructor menu page comment -->
+                 <h:selectOneMenu id="courseList" value="#{CourseBean.courseCode}">
                     <f:selectItems value="#{InstructorBean.courses}" />
                 </h:selectOneMenu>
-                <li><h:link outcome="viewTeams" value="View Teams"/></li>
-                <li><h:link outcome="setParameters" value="Set Parameters"/></li>
-                <li><h:link outcome="modifyParameters" value="Modify Parameters"/></li> 
+                <li><h:link outcome="createTeam" value="Create Team"/></li>
+                <!-- place holders for more advanced links -->
+                <li><h:link outcome="joinTeam" value="Join Team"/></li>
+                <li><h:link outcome="quitTeam" value="Quit Team"/></li>
+                <li><h:link outcome="acceptStudent" value="Accept Student"/></li>
             </ui:define>
 
         </ui:composition>
