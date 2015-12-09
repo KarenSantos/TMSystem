@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="left">
+                <li><h:link outcome="signOut" value="Sign Out"/></li>
+            </ui:define>
+
+            <ui:define name="content">
+                <li><h:link outcome="registerCourse" value="Register Course"/></li>
+                <!-- for the next links, we need to select a course code 
+                and submit it to generate the outcome? 
+                http://stackoverflow.com/questions/7221872/jsf-combobox-display-items-from-collection
+                -->
+                <h:selectOneMenu id="courseList" value="#{InstructorBean.courseCode}">
+                    <f:selectItems value="#{InstructorBean.courses}" />
+                </h:selectOneMenu>
+                <li><h:link outcome="viewTeams" value="View Teams"/></li>
+                <li><h:link outcome="setParameters" value="Set Parameters"/></li>
+                <li><h:link outcome="modifyParameters" value="Modify Parameters"/></li> 
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
