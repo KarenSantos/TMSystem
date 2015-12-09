@@ -13,12 +13,12 @@ import javax.persistence.Table;
 
 /**
  *
- * @author ssome
+ * @author karensantos
  */
 @Entity
 @Table(name="UserTable7997484")
-public class User implements Serializable {
-    private static long serialVersionUID = 1L;
+public abstract class User implements Serializable {
+    static long serialVersionUID = 1L;
 
     /**
      * @return the serialVersionUID

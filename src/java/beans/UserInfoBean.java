@@ -18,7 +18,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import persistence.DBHelper;
+import persistence.Student;
 import persistence.User;
+import persistence.Section;
 
 /**
  *
@@ -32,6 +34,8 @@ public class UserInfoBean implements Serializable {
     private String password;
     private String nameLast;
     private String nameGiven;
+    private String program;
+    private Section section;
     private String addstatus;
     private List<User> lookupResults;
     @PersistenceContext(unitName = "TMSystemPU")
@@ -101,7 +105,22 @@ public class UserInfoBean implements Serializable {
         this.nameGiven = nameGiven;
     }
 
-    
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
+
     /**
      * Sets all attributes of a UserProfileBean from a UserProfile
      * @param user The UserProfile
@@ -151,8 +170,8 @@ public class UserInfoBean implements Serializable {
      * @param actionEvent
      * @return 
      */
-    public String doRegister(ActionEvent actionEvent) {
-        User user = new User(emailId, password, nameLast, nameGiven);
+    public String doRegisterStudent(ActionEvent actionEvent) {
+        User user = new Student(emailId, password, nameLast, nameGiven, program, section);
        
         try {
            persist(user); 
