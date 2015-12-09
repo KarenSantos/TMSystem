@@ -5,6 +5,8 @@
  */
 package persistence;
 
+import beans.CourseBean;
+import beans.UserInfoBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -140,6 +142,17 @@ public class Course implements Serializable {
 
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
+    }
+    
+    /**
+     * @param courseBean
+     * @return true if this Course matches the courseBean bean
+     */
+    public boolean matches(CourseBean courseBean) {
+        if (!"".equals(courseBean.getCourseCode()) && !this.getCourseCode().trim().equals(courseBean.getCourseCode().trim())) {
+            return false;
+        } 
+        return true;
     }
     
 }

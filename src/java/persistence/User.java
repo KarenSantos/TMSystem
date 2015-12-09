@@ -126,7 +126,6 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * 
      * @param userInfoBean
      * @return true if this User matches the userProfileBean bean
      */

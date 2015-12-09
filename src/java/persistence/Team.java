@@ -5,6 +5,7 @@
  */
 package persistence;
 
+import beans.TeamBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,5 +134,15 @@ public class Team implements Serializable {
         this.liaison = liaison;
     }
     
+    /**
+     * @param teamBean
+     * @return true if this Course matches the courseBean bean
+     */
+    public boolean matches(TeamBean teamBean) {
+        if (!"".equals(teamBean.getTeamId()) && !this.getTeamId().trim().equals(teamBean.getTeamId().trim())) {
+            return false;
+        } 
+        return true;
+    }
     
 }
